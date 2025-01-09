@@ -514,7 +514,7 @@ nav {
 .list-content p {
     color: var(--secondary-color);
     line-height: 1.6;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
     font-size: 1rem;
 }
 
@@ -524,6 +524,11 @@ nav {
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.3s ease;
+    position: relative;
+}
+
+.list-content .btn-primary::after {
+    display: none;
 }
 
 .list-item:hover .btn-primary {
@@ -571,7 +576,7 @@ nav {
 .footer {
     background: #f8f9fa;
     padding: 80px 10% 40px;
-    margin-top: var(--section-spacing);
+
     border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
