@@ -404,4 +404,206 @@ nav {
     color: var(--secondary-color);
     line-height: 1.6;
     font-size: 1rem;
+}
+
+/* 轮播组件样式 */
+.carousel-background {
+    background: #e0e0e0;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 40px 0;
+}
+
+.carousel-container {
+    background: #f5f5f5;
+    border-radius: 20px;
+    padding: 40px;
+    margin: 0;
+}
+
+.carousel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.carousel-header .section-title {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    flex: 1 1 100%;
+}
+
+.carousel-subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    margin: 0;
+    flex: 1;
+    max-width: 600px;
+}
+
+.carousel-button {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn-prev,
+.btn-next {
+    background: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-prev:hover,
+.btn-next:hover {
+    background: #eee;
+}
+
+.button-text {
+    color: #333;
+    font-weight: 500;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.project-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-card h3 {
+    margin: 0;
+    color: #333;
+    font-size: 1.2em;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 3px;
+    background: rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress {
+    width: 0;
+    height: 100%;
+    background: #FFD700;
+    transition: width 2s linear;
+}
+
+.list-section {
+    padding: 40px 10%;
+    background: #f9f9f9;
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.list-image {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+}
+
+.list-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.list-content h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.list-content p {
+    margin: 5px 0 0;
+    color: #666;
+}
+
+.image-carousel {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.image-carousel img {
+    min-width: 100%;
+    transition: transform 0.5s ease;
+}
+
+.carousel-tabs {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    width: 100%;
+    justify-content: center;
+}
+
+.tab {
+    background: transparent;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    position: relative;
+    color: #666;
+    transition: color 0.3s;
+}
+
+.tab::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: transparent;
+    transition: background-color 0.3s;
+}
+
+.tab:hover {
+    color: #333;
+}
+
+.tab.active {
+    color: #000;
+}
+
+.tab.active::after {
+    background: #FFD700;
 } 
