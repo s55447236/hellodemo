@@ -19,7 +19,7 @@ gsap.utils.toArray('.section-title').forEach(title => {
 gsap.from('.project-card', {
     scrollTrigger: {
         trigger: '.project-grid',
-        start: 'top 80%',
+        start: 'top 60%',
         end: 'center center',
         scrub: 0.5
     },
