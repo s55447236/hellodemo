@@ -15,6 +15,21 @@ gsap.utils.toArray('.section-title').forEach(title => {
     });
 });
 
+// 副标题动画
+gsap.utils.toArray('.section-subtitle').forEach(subtitle => {
+    gsap.from(subtitle, {
+        scrollTrigger: {
+            trigger: subtitle,
+            start: 'top 80%',
+            end: 'top 30%',
+            scrub: 0.5
+        },
+        opacity: 0,
+        y: 20,
+        delay: 0.2
+    });
+});
+
 // 项目卡片动画
 gsap.from('.project-card', {
     scrollTrigger: {
@@ -66,65 +81,140 @@ gsap.to(gradientCanvas, {
     ease: 'none'
 }); 
 
-// 服务卡片动画
-gsap.from('.service-card', {
-    scrollTrigger: {
-        trigger: '.services-grid',
-        start: 'top 80%',
-        toggleActions: 'play none none reverse'
-    },
-    y: 30,
-    opacity: 0,
-    duration: 0.8,
-    stagger: {
-        amount: 0.6
-    },
-    ease: 'power2.out'
-}); 
+// 初始化文字动画
+function initTextAnimation() {
+    // 获取所有标题行
+    const titleLines = document.querySelectorAll('.hero-title-line');
+    
+    // 设置初始状态
+    gsap.set(titleLines[0].querySelector('.hero-title-main'), {
+        clipPath: 'inset(0 0 0 0)',
+        color: '#000'
+    });
+    gsap.set(titleLines[0].querySelector('.hero-title-shadow'), {
+        opacity: 0.1
+    });
 
-// 确保 DOM 加载完成后执行
-document.addEventListener('DOMContentLoaded', () => {
-    // 立即显示第一行黑色文字
-    const firstLine = document.querySelector('.hero-title-line');
-    if (firstLine) {
-        const firstTitle = firstLine.querySelector('.hero-title-main');
-        gsap.set(firstTitle, {
-            clipPath: 'inset(0 0 0 0)',
-            webkitClipPath: 'inset(0 0 0 0)'
+    // 其他行的初始状态和动画
+    titleLines.forEach((line, index) => {
+        if (index === 0) return;
+        
+        const mainTitle = line.querySelector('.hero-title-main');
+        const shadowTitle = line.querySelector('.hero-title-shadow');
+        
+        // 设置初始状态
+        gsap.set(mainTitle, {
+            clipPath: 'inset(0 100% 0 0)',
+            color: 'rgba(0, 0, 0, 0.1)'
         });
-    }
-});
+        gsap.set(shadowTitle, {
+            opacity: 1
+        });
 
-// 分行文字滚动显现效果
-gsap.utils.toArray('.hero-title-line').forEach((line, index) => {
-    // 跳过第一行的滚动动画
-    if (index === 0) return;
-
-    gsap.to(line.querySelector('.hero-title-main'), {
-        scrollTrigger: {
+        // 创建滚动动画
+        ScrollTrigger.create({
             trigger: '.hero',
             start: 'top top',
-            end: '+=800',
-            scrub: 0.5,
-            onUpdate: self => {
+            end: '+=400',
+            scrub: 1,
+            onUpdate: (self) => {
                 const progress = self.progress;
                 const threshold = (index - 1) * 0.25;
                 const adjustedProgress = Math.max(0, (progress - threshold) * 2);
-                const clipAmount = 100 - (adjustedProgress * 100);
-                line.querySelector('.hero-title-main').style.clipPath = `inset(0 0 0 ${clipAmount}%)`;
-                line.querySelector('.hero-title-main').style.webkitClipPath = `inset(0 0 0 ${clipAmount}%)`;
+                
+                if (adjustedProgress <= 1) {
+                    gsap.to(mainTitle, {
+                        clipPath: `inset(0 ${100 - (adjustedProgress * 100)}% 0 0)`,
+                        color: adjustedProgress > 0.5 ? '#000' : 'rgba(0, 0, 0, 0.1)',
+                        duration: 0.1,
+                        ease: 'none'
+                    });
+                    gsap.to(shadowTitle, {
+                        opacity: adjustedProgress > 0.5 ? 0.1 : 1,
+                        duration: 0.1,
+                        ease: 'none'
+                    });
+                }
             }
-        },
+        });
     });
-});
+}
 
 // 页面加载时的初始动画
-gsap.utils.toArray('.hero-title-main').forEach((title, index) => {
-    // 跳过第一行
-    if (index === 0) return;
+function initLoadAnimation() {
+    const heroSubtitle = document.querySelector('.hero-subtitle');
+    const heroButtons = document.querySelector('.hero-buttons');
+    const gradientCanvas = document.querySelector('.gradient-canvas');
 
-    gsap.set(title, {
-        clipPath: 'inset(0 0 0 100%)',
-        webkitClipPath: 'inset(0 0 0 100%)'
+    gsap.timeline()
+        .from(heroSubtitle, {
+            opacity: 0,
+            y: 20,
+            duration: 0.8,
+            ease: 'power2.out'
+        })
+        .from(heroButtons, {
+            opacity: 0,
+            y: 20,
+            duration: 0.8,
+            ease: 'power2.out'
+        }, '-=0.6')
+        .from(gradientCanvas, {
+            opacity: 0,
+            duration: 1.5,
+            ease: 'power2.out'
+        }, '-=0.8');
+}
+
+// 服务卡片动画
+function initServiceCards() {
+    gsap.from('.service-card', {
+        scrollTrigger: {
+            trigger: '.services-grid',
+            start: 'top 80%',
+            toggleActions: 'play none none reverse'
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        stagger: {
+            amount: 0.6
+        },
+        ease: 'power2.out'
     });
+}
+
+// 初始化列表动画
+function initListAnimation() {
+    const listItems = gsap.utils.toArray('.list-item');
+    
+    listItems.forEach((item, index) => {
+        // 设置初始状态
+        gsap.set(item, {
+            opacity: 0,
+            y: 100
+        });
+
+        // 创建动画
+        gsap.to(item, {
+            scrollTrigger: {
+                trigger: item,
+                start: 'top bottom-=100',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            delay: index * 0.2
+        });
+    });
+}
+
+// 确保 DOM 加载完成后执行
+document.addEventListener('DOMContentLoaded', () => {
+    initTextAnimation();
+    initLoadAnimation();
+    initServiceCards();
+    initListAnimation();
 }); 

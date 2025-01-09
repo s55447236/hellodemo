@@ -53,6 +53,7 @@
 
         <section id="services" class="services">
             <h2 class="section-title">My Expertise</h2>
+            <p class="section-subtitle">Comprehensive educational services tailored to enhance your learning journey</p>
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon">📚</div>
@@ -72,51 +73,9 @@
             </div>
         </section>
 
-        <section id="new-carousel" class="work">
-            <div class="carousel-content">
-                <div class="image-carousel">
-                    <img src="/images/img1.png" alt="Featured Courses">
-                    <img src="/images/img2.png" alt="Interactive Workshops">
-                    <img src="/images/img3.png" alt="Educational Resources">
-                    <h2 class="section-title">Featured Courses</h2>
-                    <p class="carousel-subtitle" id="carousel-text">Explore a variety of courses designed to help you succeed in your educational pursuits.</p>
-                </div>
-                <div class="carousel-tabs">
-                    <div class="tab-container">
-                        <button class="tab active" data-index="0">Featured Courses</button>
-                        <div class="progress-bar">
-                            <div class="progress"></div>
-                        </div>
-                    </div>
-                    <div class="tab-container">
-                        <button class="tab" data-index="1">Interactive Workshops</button>
-                        <div class="progress-bar">
-                            <div class="progress"></div>
-                        </div>
-                    </div>
-                    <div class="tab-container">
-                        <button class="tab" data-index="2">Educational Resources</button>
-                        <div class="progress-bar">
-                            <div class="progress"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-button">
-                    <button class="btn-prev">
-                        <svg width="24" height="24" viewBox="0 0 24 24">
-                            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-                        </svg>
-                    </button>
-                    <button class="btn-next">
-                        <svg width="24" height="24" viewBox="0 0 24 24">
-                            <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </section>
-
         <section id="list-section" class="list-section">
+            <h2 class="section-title">Success Stories</h2>
+            <p class="section-subtitle">Explore our students' success stories and upcoming exciting events</p>
             <div class="list-item">
                 <div class="list-image">
                     <img src="star1.png" alt="Star Image">
@@ -148,211 +107,37 @@
         </section>
     </main>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // 首先注册 ScrollTrigger 插件
-        gsap.registerPlugin(ScrollTrigger);
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: info@example.com</p>
+                <p>Phone: (123) 456-7890</p>
+                <p>Address: 123 Education St, Learning City</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link">Twitter</a>
+                    <a href="#" class="social-link">LinkedIn</a>
+                    <a href="#" class="social-link">Instagram</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Education Platform. All rights reserved.</p>
+        </div>
+    </footer>
 
-        // 初始化服务卡片动画
-        function initServiceCards() {
-            // 获取所有服务卡片元素和标题
-            const cards = document.querySelectorAll('.service-card');
-            const title = document.querySelector('.services .section-title');
-
-            // 确保元素可见
-            gsap.set([title, ...cards], { opacity: 1, y: 0 });
-        }
-
-        // 初始化滚动文字动画
-        function initScrollText() {
-            gsap.utils.toArray('.hero-title-line').forEach((line, index) => {
-                const mainTitle = line.querySelector('.hero-title-main');
-                const shadowTitle = line.querySelector('.hero-title-shadow');
-
-                // 设置初始状态
-                if (index === 0) {
-                    gsap.set(mainTitle, {
-                        clipPath: 'inset(0 0 0 0)',
-                        color: '#000'
-                    });
-                    gsap.set(shadowTitle, {
-                        opacity: 0.1
-                    });
-                } else {
-                    gsap.set(mainTitle, {
-                        clipPath: 'inset(0 100% 0 0)',
-                        color: 'rgba(0, 0, 0, 0.1)'
-                    });
-                    gsap.set(shadowTitle, {
-                        opacity: 1
-                    });
-
-                    // 创建滚动动画
-                    gsap.timeline({
-                        scrollTrigger: {
-                            trigger: '.hero',
-                            start: 'top top',
-                            end: '+=400',
-                            scrub: 1,
-                            markers: true, // 用于调试，之后可以删除
-                            onUpdate: (self) => {
-                                const progress = self.progress;
-                                const threshold = (index - 1) * 0.3;
-                                const adjustedProgress = Math.max(0, (progress - threshold) * 3);
-                                
-                                if (adjustedProgress <= 1) {
-                                    const clipAmount = 100 - (adjustedProgress * 100);
-                                    mainTitle.style.clipPath = `inset(0 ${clipAmount}% 0 0)`;
-                                    mainTitle.style.color = adjustedProgress > 0.5 ? '#000' : 'rgba(0, 0, 0, 0.1)';
-                                    shadowTitle.style.opacity = adjustedProgress > 0.5 ? '0.1' : '1';
-                                }
-                            }
-                        }
-                    });
-                }
-            });
-        }
-
-        // 初始化轮播图相关功能
-        function initCarousel() {
-            // ... existing carousel code ...
-        }
-
-        // 初始化所有动画
-        initScrollText();
-        initServiceCards();
-        
-        // 其他动画
-        gsap.from('.project-card', {
-            scrollTrigger: {
-                trigger: '.project-grid',
-                start: 'top 80%',
-                end: 'center center',
-                scrub: 0.5
-            },
-            y: 50,
-            opacity: 0,
-            stagger: {
-                amount: 0.3
-            }
-        });
-
-        gsap.from('.section-title', {
-            scrollTrigger: {
-                trigger: '.section-title',
-                start: 'top 80%',
-                end: 'top 30%',
-                scrub: 0.5
-            },
-            opacity: 0,
-            y: 30
-        });
-
-        gsap.utils.toArray('.list-item').forEach((item, index) => {
-            gsap.to(item, {
-                scrollTrigger: {
-                    trigger: item,
-                    start: 'top 80%',
-                    end: 'top 60%',
-                    scrub: 0.5
-                },
-                opacity: 1,
-                transform: 'translateY(0)',
-                delay: index * 0.2
-            });
-        });
-
-        // 轮播图相关代码
-        const images = document.querySelectorAll('.image-carousel img');
-        const tabs = document.querySelectorAll('.tab');
-        const carouselText = document.getElementById('carousel-text');
-        let imageIndex = 0;
-
-        const titles = [
-            'Featured Courses',
-            'Interactive Workshops',
-            'Educational Resources'
-        ];
-
-        const texts = [
-            'Explore a variety of courses designed to help you succeed in your educational pursuits.',
-            'Join our interactive workshops to enhance your skills.',
-            'Access a wide range of educational resources tailored for you.'
-        ];
-
-        function showImage(index) {
-            const offset = -index * 100;
-            images.forEach(img => {
-                img.style.transform = `translateX(${offset}%)`;
-            });
-            
-            // 更新标题和文本内容
-            const sectionTitle = document.querySelector('#new-carousel .section-title');
-            sectionTitle.textContent = titles[index];
-            carouselText.textContent = texts[index];
-            
-            // 重置所有进度条
-            document.querySelectorAll('.progress').forEach(progress => {
-                progress.style.transition = 'none';
-                progress.style.width = '0';
-            });
-            
-            // 获取当前标签的进度条
-            const currentProgress = document.querySelectorAll('.progress')[index];
-            
-            // 强制浏览器重排
-            currentProgress.offsetHeight;
-            
-            // 添加过渡效果并开始动画
-            currentProgress.style.transition = 'width 2s linear';
-            currentProgress.style.width = '100%';
-
-            // 监听进度条动画结束
-            const onTransitionEnd = () => {
-                if (currentProgress.style.width === '100%') {
-                    currentProgress.removeEventListener('transitionend', onTransitionEnd);
-                    nextImage();
-                }
-            };
-            
-            currentProgress.addEventListener('transitionend', onTransitionEnd);
-
-            // 更新标签状态
-            tabs.forEach((tab, i) => {
-                if (i === index) {
-                    tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                }
-            });
-        }
-
-        function nextImage() {
-            imageIndex = (imageIndex + 1) % images.length;
-            showImage(imageIndex);
-        }
-
-        // 初始化显示和自动轮播
-        showImage(0);
-        const autoPlayInterval = setInterval(nextImage, 2000);
-
-        tabs.forEach((tab, index) => {
-            tab.addEventListener('click', () => {
-                imageIndex = index;
-                showImage(index);
-            });
-        });
-
-        document.querySelector('.btn-prev').addEventListener('click', () => {
-            imageIndex = (imageIndex - 1 + images.length) % images.length;
-            showImage(imageIndex);
-        });
-
-        document.querySelector('.btn-next').addEventListener('click', () => {
-            imageIndex = (imageIndex + 1) % images.length;
-            showImage(imageIndex);
-        });
-    });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html> 
