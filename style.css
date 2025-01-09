@@ -432,16 +432,18 @@ nav {
 .carousel-subtitle {
     color: #666;
     font-size: 1.1rem;
-    margin: 15px 0 30px;
+    margin: 15px 0 10px;
     max-width: 600px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .carousel-button {
     display: flex;
     gap: 10px;
-    position: absolute;
-    right: 20px;
-    top: 40px;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 .btn-prev, .btn-next {
@@ -469,81 +471,123 @@ nav {
 .carousel-content {
     position: relative;
     overflow: hidden;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     background: #fff;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .image-carousel {
+    position: relative;
     display: flex;
-    transition: transform 0.5s ease;
+    width: 100%;
+    overflow: hidden;
+    margin: 0 0 40px;
 }
 
 .image-carousel img {
+    min-width: 100%;
     width: 100%;
     height: 400px;
     object-fit: cover;
+    transition: transform 0.5s ease;
 }
 
-.progress-bar {
-    height: 2px;
-    background: #eee;
-    position: relative;
-    margin-top: 20px;
+#new-carousel .section-title {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    margin: 0;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 3.5rem;
 }
 
-.progress {
-    height: 100%;
-    background: var(--primary-color);
-    width: 0;
-    transition: width 2s linear;
+#new-carousel .carousel-subtitle {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    color: #fff;
+    font-size: 1.2rem;
+    margin: 0;
+    max-width: 600px;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    line-height: 1.6;
 }
 
 .carousel-tabs {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    width: 100%;
+    position: relative;
     margin-top: 20px;
-    padding: 20px;
+}
+
+.tab-container {
+    flex: 1;
+    position: relative;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .tab {
-    padding: 10px 20px;
+    width: 100%;
+    padding: 15px 20px;
     border: none;
     background: none;
-    color: #666;
+    color: rgba(0, 0, 0, 0.8);
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 500;
     position: relative;
     transition: all 0.3s ease;
-}
-
-.tab:hover {
-    color: var(--primary-color);
+    text-align: center;
+    z-index: 2;
 }
 
 .tab.active {
-    color: var(--primary-color);
-    background: rgba(0, 0, 0, 0.03);
-    border-radius: 8px;
+    color: #fff;
+    mix-blend-mode: difference;
+}
+
+.progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: none;
+    pointer-events: none;
+}
+
+.progress {
+    width: 0;
+    height: 100%;
+    background-color: #000;
+    transition: width 2s linear;
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
-    .carousel-button {
-        position: static;
-        justify-content: center;
-        margin-top: 20px;
-    }
-
-    .carousel-tabs {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
+    .carousel-content {
+        padding: 20px;
     }
 
     .image-carousel img {
         height: 300px;
+    }
+
+    .carousel-tabs {
+        flex-direction: column;
+    }
+
+    .tab {
+        width: 100%;
     }
 } 
