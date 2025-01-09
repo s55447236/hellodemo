@@ -348,6 +348,8 @@ nav {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    will-change: transform, opacity;
+    cursor: pointer;
 }
 
 .service-card:hover {
@@ -408,51 +410,43 @@ nav {
 
 /* 轮播组件样式 */
 .carousel-background {
-    background: #e0e0e0;
-    border-radius: 20px;
-    padding: 20px;
-    margin: 40px 0;
+    background: linear-gradient(to bottom, #f8f9fa, #fff);
+    padding: 60px 0;
 }
 
 .carousel-container {
-    background: #f5f5f5;
-    border-radius: 20px;
-    padding: 40px;
-    margin: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    position: relative;
 }
 
 .carousel-header {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
     margin-bottom: 40px;
-    flex-wrap: wrap;
-}
-
-.carousel-header .section-title {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    flex: 1 1 100%;
+    text-align: center;
 }
 
 .carousel-subtitle {
-    font-size: 1.2rem;
     color: #666;
-    margin: 0;
-    flex: 1;
+    font-size: 1.1rem;
+    margin: 15px 0 30px;
     max-width: 600px;
 }
 
 .carousel-button {
     display: flex;
-    align-items: center;
-    gap: 20px;
+    gap: 10px;
+    position: absolute;
+    right: 20px;
+    top: 40px;
 }
 
-.btn-prev,
-.btn-next {
-    background: white;
-    border: none;
+.btn-prev, .btn-next {
+    background: #fff;
+    border: 1px solid #e0e0e0;
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -460,150 +454,96 @@ nav {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
 }
 
-.btn-prev:hover,
-.btn-next:hover {
-    background: #eee;
+.btn-prev:hover, .btn-next:hover {
+    background: #f5f5f5;
+    border-color: #ccc;
 }
 
-.button-text {
-    color: #333;
-    font-weight: 500;
+.btn-prev svg, .btn-next svg {
+    fill: #333;
 }
 
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-.project-card {
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.project-card h3 {
-    margin: 0;
-    color: #333;
-    font-size: 1.2em;
-}
-
-.progress-bar {
-    width: 100%;
-    height: 3px;
-    background: rgba(0, 0, 0, 0.1);
-    margin-top: 30px;
-    border-radius: 2px;
+.carousel-content {
+    position: relative;
     overflow: hidden;
-}
-
-.progress {
-    width: 0;
-    height: 100%;
-    background: #FFD700;
-    transition: width 2s linear;
-}
-
-.list-section {
-    padding: 40px 10%;
-    background: #f9f9f9;
-}
-
-.list-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.list-image {
-    flex-shrink: 0;
-    width: 80px;
-    height: 80px;
-    margin-right: 20px;
-}
-
-.list-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-.list-content h3 {
-    margin: 0;
-    font-size: 1.5rem;
-    color: #333;
-}
-
-.list-content p {
-    margin: 5px 0 0;
-    color: #666;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    background: #fff;
 }
 
 .image-carousel {
     display: flex;
-    overflow: hidden;
-    width: 100%;
-    position: relative;
+    transition: transform 0.5s ease;
 }
 
 .image-carousel img {
-    min-width: 100%;
-    transition: transform 0.5s ease;
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.progress-bar {
+    height: 2px;
+    background: #eee;
+    position: relative;
+    margin-top: 20px;
+}
+
+.progress {
+    height: 100%;
+    background: var(--primary-color);
+    width: 0;
+    transition: width 2s linear;
 }
 
 .carousel-tabs {
     display: flex;
-    gap: 15px;
-    margin-top: 20px;
-    width: 100%;
     justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+    padding: 20px;
 }
 
 .tab {
-    background: transparent;
+    padding: 10px 20px;
     border: none;
-    padding: 8px 16px;
-    cursor: pointer;
-    position: relative;
+    background: none;
     color: #666;
-    transition: color 0.3s;
-}
-
-.tab::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: transparent;
-    transition: background-color 0.3s;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    position: relative;
+    transition: all 0.3s ease;
 }
 
 .tab:hover {
-    color: #333;
+    color: var(--primary-color);
 }
 
 .tab.active {
-    color: #000;
+    color: var(--primary-color);
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 8px;
 }
 
-.tab.active::after {
-    background: #FFD700;
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .carousel-button {
+        position: static;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .carousel-tabs {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .image-carousel img {
+        height: 300px;
+    }
 } 
