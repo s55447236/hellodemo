@@ -1,211 +1,156 @@
-// 导入 ScrollTrigger 插件
+// 注册 ScrollTrigger 插件
 gsap.registerPlugin(ScrollTrigger);
 
-// 页面滚动动画
-gsap.utils.toArray('.section-title').forEach(title => {
-    gsap.from(title, {
-        scrollTrigger: {
-            trigger: title,
-            start: 'top 80%',
-            end: 'top 30%',
-            scrub: 0.5
-        },
-        opacity: 0,
-        y: 30
-    });
-});
-
-// 副标题动画
-gsap.utils.toArray('.section-subtitle').forEach(subtitle => {
-    gsap.from(subtitle, {
-        scrollTrigger: {
-            trigger: subtitle,
-            start: 'top 80%',
-            end: 'top 30%',
-            scrub: 0.5
-        },
-        opacity: 0,
-        y: 20,
-        delay: 0.2
-    });
-});
-
-// 注释掉与 .project-card 和 .project-grid 相关的动画代码
-// gsap.from('.project-card', {
-//     scrollTrigger: {
-//         trigger: '.project-grid',
-//         start: 'top 60%',
-//         end: 'center center',
-//         scrub: 0.5
-//     },
-//     y: 50,
-//     opacity: 0,
-//     stagger: {
-//         amount: 0.3
-//     }
-// });
-
-// 平滑滚动
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        target.scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
-
-// 检查 .floating-shapes 元素是否存在
-const floatingShapesContainer = document.querySelector('.floating-shapes');
-if (floatingShapesContainer) {
-    createFloatingShapes();
-}
-
-// 随机生成浮动形状
-function createFloatingShapes() {
-    const container = document.querySelector('.floating-shapes');
-    for (let i = 0; i < 5; i++) {
-        const shape = document.createElement('div');
-        shape.classList.add('shape');
-        shape.style.left = Math.random() * 100 + 'vw';
-        shape.style.top = Math.random() * 100 + 'vh';
-        shape.style.animationDelay = Math.random() * 5 + 's';
-        container.appendChild(shape);
-    }
-}
-
-// 渐变动画
-const gradientCanvas = document.querySelector('.gradient-canvas');
-gsap.to(gradientCanvas, {
-    background: 'linear-gradient(225deg, rgba(255, 0, 0, 0.1), rgba(0, 255, 255, 0.1))',
-    duration: 10,
-    repeat: -1,
-    yoyo: true,
-    ease: 'none'
-}); 
-
-// 初始化文字动画
-function initTextAnimation() {
-    // 获取所有标题行
-    const titleLines = document.querySelectorAll('.hero-title-line');
-    
+// 页面加载时的动画
+function initAnimations() {
     // 设置初始状态
-    titleLines.forEach((line, index) => {
-        const mainTitle = line.querySelector('.hero-title-main');
-        const shadowTitle = line.querySelector('.hero-title-shadow');
-        
-        // 设置初始状态
-        gsap.set(mainTitle, {
-            clipPath: 'inset(0 100% 0 0)',
-            color: '#000'
-        });
-        gsap.set(shadowTitle, {
-            opacity: 1
-        });
+    gsap.set('.header', { y: -50, opacity: 0 });
+    gsap.set('.hero-title-line', { y: 50, opacity: 0 });
+    gsap.set('.hero-subtitle', { y: 30, opacity: 0 });
+    gsap.set('.hero-buttons', { y: 30, opacity: 0 });
+    gsap.set('.featured-courses .section-title', { y: 50, opacity: 0 });
+    gsap.set('.featured-courses .section-subtitle', { y: 30, opacity: 0 });
+    gsap.set('.course-card', { y: 50, opacity: 0 });
+    gsap.set('.list-section .section-title', { y: 50, opacity: 0 });
+    gsap.set('.list-section .section-subtitle', { y: 30, opacity: 0 });
+    gsap.set('.list-item', { y: 50, opacity: 0 });
+    gsap.set('.footer-section', { y: 30, opacity: 0 });
+    gsap.set('.footer-bottom', { y: 30, opacity: 0 });
 
-        // 创建滚动动画
-        ScrollTrigger.create({
-            trigger: '.hero',
-            start: 'top top',
-            end: '+=400',
-            scrub: 0.1,
-            onUpdate: (self) => {
-                const progress = self.progress;
-                const threshold = index * 0.25;
-                const adjustedProgress = Math.max(0, (progress - threshold) * 2);
-                
-                if (adjustedProgress <= 1) {
-                    gsap.to(mainTitle, {
-                        clipPath: `inset(0 ${100 - (adjustedProgress * 100)}% 0 0)`,
-                        duration: 0.02,
-                        ease: 'none'
-                    });
-                    gsap.set(shadowTitle, {
-                        opacity: 1
-                    });
-                }
-            }
-        });
+    // 导航栏动画
+    gsap.to('.header', {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: 'power2.out'
     });
-}
 
-// 页面加载时的初始动画
-function initLoadAnimation() {
-    const heroSubtitle = document.querySelector('.hero-subtitle');
-    const heroButtons = document.querySelector('.hero-buttons');
-    const gradientCanvas = document.querySelector('.gradient-canvas');
+    // Hero 部分动画
+    gsap.to('.hero-title-line', {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        stagger: 0.2,
+        ease: 'power2.out'
+    });
 
-    gsap.timeline()
-        .from(heroSubtitle, {
-            opacity: 0,
-            y: 20,
-            duration: 0.8,
-            ease: 'power2.out'
-        })
-        .from(heroButtons, {
-            opacity: 0,
-            y: 20,
-            duration: 0.8,
-            ease: 'power2.out'
-        }, '-=0.6')
-        .from(gradientCanvas, {
-            opacity: 0,
-            duration: 1.5,
-            ease: 'power2.out'
-        }, '-=0.8');
-}
+    gsap.to('.hero-subtitle', {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        delay: 0.8,
+        ease: 'power2.out'
+    });
 
-// 服务卡片逐个放大动画
-function initServiceCards() {
-    gsap.to('.service-card', {
+    gsap.to('.hero-buttons', {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        delay: 1,
+        ease: 'power2.out'
+    });
+
+    // Featured Courses 部分动画
+    gsap.to('.featured-courses .section-title', {
         scrollTrigger: {
-            trigger: '.services',
-            start: 'top 80%',
-            toggleActions: 'play none none none'
+            trigger: '.featured-courses',
+            start: 'top 80%'
         },
-        scale: 1, // 放大到正常大小
-        opacity: 1, // 显示
+        y: 0,
+        opacity: 1,
         duration: 0.8,
-        stagger: {
-            amount: 0.6
+        ease: 'power2.out'
+    });
+
+    gsap.to('.featured-courses .section-subtitle', {
+        scrollTrigger: {
+            trigger: '.featured-courses',
+            start: 'top 80%'
         },
-        ease: 'power2.out',
-        delay: 0.5
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        delay: 0.2,
+        ease: 'power2.out'
     });
-}
 
-// 初始化列表动画
-function initListAnimation() {
-    const listItems = gsap.utils.toArray('.list-item');
-    
-    listItems.forEach((item, index) => {
-        // 设置初始状态
-        gsap.set(item, {
-            opacity: 0,
-            y: 100
-        });
+    const featuredTimeline = gsap.timeline({
+        scrollTrigger: {
+            trigger: '.featured-courses',
+            start: 'top 80%'
+        }
+    });
 
-        // 创建动画
-        gsap.to(item, {
-            scrollTrigger: {
-                trigger: item,
-                start: 'top bottom-=100',
-                toggleActions: 'play none none reverse'
-            },
-            opacity: 1,
+    featuredTimeline
+        .to('.course-card', {
             y: 0,
+            opacity: 1,
             duration: 0.8,
-            ease: 'power2.out',
-            delay: index * 0.2
+            stagger: 0.2,
+            delay: 0.4
         });
+
+    // Success Stories 部分动画
+    gsap.to('.list-section .section-title', {
+        scrollTrigger: {
+            trigger: '.list-section',
+            start: 'top 80%'
+        },
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power2.out'
     });
+
+    gsap.to('.list-section .section-subtitle', {
+        scrollTrigger: {
+            trigger: '.list-section',
+            start: 'top 80%'
+        },
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        delay: 0.2,
+        ease: 'power2.out'
+    });
+
+    const successTimeline = gsap.timeline({
+        scrollTrigger: {
+            trigger: '.list-section',
+            start: 'top 80%'
+        }
+    });
+
+    successTimeline
+        .to('.list-item', {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.2,
+            delay: 0.4
+        });
+
+    // Footer 动画
+    const footerTimeline = gsap.timeline({
+        scrollTrigger: {
+            trigger: '.footer',
+            start: 'top 85%'
+        }
+    });
+
+    footerTimeline
+        .to('.footer-section', {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.2
+        })
+        .to('.footer-bottom', {
+            y: 0,
+            opacity: 1,
+            duration: 0.8
+        }, '-=0.5');
 }
 
-// 确保 DOM 加载完成后执行
-document.addEventListener('DOMContentLoaded', () => {
-    initTextAnimation();
-    initLoadAnimation();
-    initServiceCards();
-    initListAnimation();
-}); 
+// 页面加载完成后初始化动画
+window.addEventListener('load', initAnimations); 

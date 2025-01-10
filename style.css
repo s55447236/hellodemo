@@ -845,4 +845,25 @@ nav {
         flex-direction: column;
         gap: 8px;
     }
-} 
+}
+
+// 初始状态设置
+gsap.set('.list-item', { y: 70, opacity: 0 });
+
+// 动画执行
+const successTimeline = gsap.timeline({
+    scrollTrigger: {
+        trigger: '.list-section',
+        start: 'top 90%'
+    }
+});
+
+successTimeline
+    .to('.list-item', {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.3,
+        delay: 0.4
+        ease: 'power2.out' // 使用缓动函数
+    }); 
