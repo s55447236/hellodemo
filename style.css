@@ -81,7 +81,7 @@ nav {
 }
 
 .hero {
-    height: 80vh;
+    height: 400px;
     min-height: 1000px;
     margin-top: 0;
     display: flex;
@@ -464,7 +464,6 @@ nav {
     background: #fff;
     border-radius: 20px;
     border: 1px solid rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
     box-shadow: 
         0 4px 6px rgba(0, 0, 0, 0.02),
         0 1px 3px rgba(0, 0, 0, 0.03);
@@ -864,6 +863,6 @@ successTimeline
         opacity: 1,
         duration: 0.8,
         stagger: 0.3,
-        delay: 0.4
-        ease: 'power2.out' // 使用缓动函数
+        delay: 0.4,
+        ease: 'power2.out'
     }); 
