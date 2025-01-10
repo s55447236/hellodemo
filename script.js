@@ -3,6 +3,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 // 页面加载时的动画
 function initAnimations() {
+    // 确保 GSAP 已经加载
+    if (typeof gsap === 'undefined') return;
+
     // 设置初始状态
     gsap.set('.header', { y: -50, opacity: 0 });
     gsap.set('.hero-title-line', { y: 50, opacity: 0 });
@@ -17,7 +20,7 @@ function initAnimations() {
     gsap.set('.footer-section', { y: 30, opacity: 0 });
     gsap.set('.footer-bottom', { y: 30, opacity: 0 });
 
-    // 导航栏动画
+    // 立即执行导航栏动画
     gsap.to('.header', {
         y: 0,
         opacity: 1,
@@ -173,5 +176,9 @@ function initAnimations() {
         }, '-=0.5');
 }
 
-// 页面加载完成后初始化动画
-window.addEventListener('load', initAnimations); 
+// 确保DOM加载完成后初始化动画
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnimations);
+} else {
+    initAnimations();
+} 
