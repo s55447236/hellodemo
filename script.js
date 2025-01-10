@@ -30,20 +30,20 @@ gsap.utils.toArray('.section-subtitle').forEach(subtitle => {
     });
 });
 
-// 项目卡片动画
-gsap.from('.project-card', {
-    scrollTrigger: {
-        trigger: '.project-grid',
-        start: 'top 60%',
-        end: 'center center',
-        scrub: 0.5
-    },
-    y: 50,
-    opacity: 0,
-    stagger: {
-        amount: 0.3
-    }
-});
+// 注释掉与 .project-card 和 .project-grid 相关的动画代码
+// gsap.from('.project-card', {
+//     scrollTrigger: {
+//         trigger: '.project-grid',
+//         start: 'top 60%',
+//         end: 'center center',
+//         scrub: 0.5
+//     },
+//     y: 50,
+//     opacity: 0,
+//     stagger: {
+//         amount: 0.3
+//     }
+// });
 
 // 平滑滚动
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -55,6 +55,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
+
+// 检查 .floating-shapes 元素是否存在
+const floatingShapesContainer = document.querySelector('.floating-shapes');
+if (floatingShapesContainer) {
+    createFloatingShapes();
+}
 
 // 随机生成浮动形状
 function createFloatingShapes() {
@@ -68,8 +74,6 @@ function createFloatingShapes() {
         container.appendChild(shape);
     }
 }
-
-createFloatingShapes(); 
 
 // 渐变动画
 const gradientCanvas = document.querySelector('.gradient-canvas');
@@ -87,25 +91,14 @@ function initTextAnimation() {
     const titleLines = document.querySelectorAll('.hero-title-line');
     
     // 设置初始状态
-    gsap.set(titleLines[0].querySelector('.hero-title-main'), {
-        clipPath: 'inset(0 0 0 0)',
-        color: '#000'
-    });
-    gsap.set(titleLines[0].querySelector('.hero-title-shadow'), {
-        opacity: 0.1
-    });
-
-    // 其他行的初始状态和动画
     titleLines.forEach((line, index) => {
-        if (index === 0) return;
-        
         const mainTitle = line.querySelector('.hero-title-main');
         const shadowTitle = line.querySelector('.hero-title-shadow');
         
         // 设置初始状态
         gsap.set(mainTitle, {
             clipPath: 'inset(0 100% 0 0)',
-            color: 'rgba(0, 0, 0, 0.1)'
+            color: '#000'
         });
         gsap.set(shadowTitle, {
             opacity: 1
@@ -116,23 +109,20 @@ function initTextAnimation() {
             trigger: '.hero',
             start: 'top top',
             end: '+=400',
-            scrub: 1,
+            scrub: 0.1,
             onUpdate: (self) => {
                 const progress = self.progress;
-                const threshold = (index - 1) * 0.25;
+                const threshold = index * 0.25;
                 const adjustedProgress = Math.max(0, (progress - threshold) * 2);
                 
                 if (adjustedProgress <= 1) {
                     gsap.to(mainTitle, {
                         clipPath: `inset(0 ${100 - (adjustedProgress * 100)}% 0 0)`,
-                        color: adjustedProgress > 0.5 ? '#000' : 'rgba(0, 0, 0, 0.1)',
-                        duration: 0.1,
+                        duration: 0.02,
                         ease: 'none'
                     });
-                    gsap.to(shadowTitle, {
-                        opacity: adjustedProgress > 0.5 ? 0.1 : 1,
-                        duration: 0.1,
-                        ease: 'none'
+                    gsap.set(shadowTitle, {
+                        opacity: 1
                     });
                 }
             }
@@ -166,21 +156,22 @@ function initLoadAnimation() {
         }, '-=0.8');
 }
 
-// 服务卡片动画
+// 服务卡片逐个放大动画
 function initServiceCards() {
-    gsap.from('.service-card', {
+    gsap.to('.service-card', {
         scrollTrigger: {
-            trigger: '.services-grid',
+            trigger: '.services',
             start: 'top 80%',
-            toggleActions: 'play none none reverse'
+            toggleActions: 'play none none none'
         },
-        y: 30,
-        opacity: 0,
+        scale: 1, // 放大到正常大小
+        opacity: 1, // 显示
         duration: 0.8,
         stagger: {
             amount: 0.6
         },
-        ease: 'power2.out'
+        ease: 'power2.out',
+        delay: 0.5
     });
 }
 
