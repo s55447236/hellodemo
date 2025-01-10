@@ -65,7 +65,7 @@ function initAnimations() {
     gsap.to('.featured-courses .section-subtitle', {
         scrollTrigger: {
             trigger: '.featured-courses',
-            start: 'top 80%'
+            start: 'top 60%'
         },
         y: 0,
         opacity: 1,
@@ -81,15 +81,24 @@ function initAnimations() {
         }
     });
 
+    // 定义课程卡片动画，添加放大效果
     featuredTimeline
-        .to('.course-card', {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.2,
-            delay: 0.4
-        });
+    .to('.course-card', {
+        y: 0, // 垂直方向移动到原始位置
+        scale: 1, // 放大到原始比例
+        opacity: 1, // 设置透明度为完全可见
+        duration: 0.8, // 每个卡片动画时长为 0.8 秒
+        stagger: 0.2, // 逐个卡片依次延迟 0.2 秒播放动画
+        delay: 0.4, // 整体动画延迟 0.4 秒开始
+        ease: 'power2.out' // 使用平滑的缓动效果
+    });
 
+    // 初始状态：设置卡片缩小并隐藏
+    gsap.set('.course-card', {
+    scale: 0.8, // 初始缩小至 80%
+    opacity: 0, // 初始完全透明
+    y: 50 // 初始向下偏移 50 像素
+    });
     // Success Stories 部分动画
     gsap.to('.list-section .section-title', {
         scrollTrigger: {
@@ -110,26 +119,37 @@ function initAnimations() {
         y: 0,
         opacity: 1,
         duration: 0.8,
-        delay: 0.2,
+        delay: 0.1,
         ease: 'power2.out'
     });
 
+    // 定义 successTimeline 动画时间轴
     const successTimeline = gsap.timeline({
         scrollTrigger: {
-            trigger: '.list-section',
-            start: 'top 90%'
+            trigger: '.list-section', // 滚动触发器为 .list-section 区域
+            start: 'top 90%' // 动画开始触发点，.list-section 顶部进入视窗的 90%
         }
     });
 
+    // 定义 .list-item 动画效果，添加放大和位移
     successTimeline
         .to('.list-item', {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.3,
-            delay: 0.4,
-            ease: 'power2.out'
+            y: 0, // 垂直方向移动到原始位置
+            scale: 1, // 放大到原始比例
+            opacity: 1, // 设置透明度为完全可见
+            duration: 0.8, // 每个列表项动画时长为 0.8 秒
+            stagger: 0.2, // 逐个列表项依次延迟 0.9 秒播放动画
+            delay: 0.3, // 整体动画延迟 0.2 秒开始
+            ease: 'power2.out' // 使用平滑的缓动效果
         });
+
+    // 设置初始状态：缩小、偏移和隐藏
+    gsap.set('.list-item', {
+        scale: 0.8, // 初始缩小至 80%
+        opacity: 0, // 初始完全透明
+        y: 50 // 初始向下偏移 50 像素
+    });     
+    
 
     // Footer 动画
     const footerTimeline = gsap.timeline({
