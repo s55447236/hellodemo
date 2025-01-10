@@ -20,6 +20,7 @@ body {
     color: var(--text-color);
     font-family: 'Arial', sans-serif;
     overflow-x: hidden;
+    cursor: auto;
 }
 
 .header {
@@ -1120,4 +1121,64 @@ nav {
     vertical-align: top;
     padding: 0 2px;
     height: 1.2em;
+}
+
+/* 隐藏默认鼠标 */
+html, body {
+    cursor: auto;
+}
+
+/* 鼠标圆圈样式 */
+.cursor {
+    width: 8px;
+    height: 8px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.2s ease;
+    mix-blend-mode: difference;
+}
+
+.cursor-follower {
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.3s ease, background 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
+/* 鼠标悬停效果 */
+.cursor.cursor-hover {
+    transform: scale(1.5);
+    background: #fff;
+}
+
+.cursor-follower.cursor-hover {
+    width: 60px;
+    height: 60px;
+    background: var(--primary-color);
+    transform: translate(-10px, -10px);
+}
+
+/* 确保所有可点击元素有正确的鼠标样式 */
+a, button, .btn-primary, .btn-secondary, .btn-course, .course-card, .list-item, .social-link {
+    cursor: pointer;
+}
+
+/* 文字反色效果 */
+.hero-title:hover ~ .cursor-follower,
+.section-title:hover ~ .cursor-follower,
+h3:hover ~ .cursor-follower,
+p:hover ~ .cursor-follower {
+    background: var(--primary-color);
+    mix-blend-mode: difference;
 } 

@@ -182,3 +182,54 @@ if (document.readyState === 'loading') {
 } else {
     initAnimations();
 } 
+
+// 鼠标跟随效果
+const cursor = document.querySelector('.cursor');
+const cursorFollower = document.querySelector('.cursor-follower');
+
+document.addEventListener('mousemove', (e) => {
+    gsap.to(cursor, {
+        x: e.clientX,
+        y: e.clientY,
+        duration: 0.1
+    });
+    
+    gsap.to(cursorFollower, {
+        x: e.clientX - 16,
+        y: e.clientY - 16,
+        duration: 0.3
+    });
+});
+
+// 当鼠标离开页面时隐藏光标
+document.addEventListener('mouseleave', () => {
+    gsap.to([cursor, cursorFollower], {
+        opacity: 0,
+        duration: 0.3
+    });
+});
+
+document.addEventListener('mouseenter', () => {
+    gsap.to([cursor, cursorFollower], {
+        opacity: 1,
+        duration: 0.3
+    });
+});
+
+// 添加对可点击元素的悬停处理
+document.addEventListener('DOMContentLoaded', () => {
+    // 选择所有可点击元素
+    const clickableElements = document.querySelectorAll('a, button, .btn-primary, .btn-secondary, .btn-course, .course-card, .list-item, .social-link');
+    
+    clickableElements.forEach(element => {
+        element.addEventListener('mouseenter', () => {
+            cursor.classList.add('cursor-hover');
+            cursorFollower.classList.add('cursor-hover');
+        });
+        
+        element.addEventListener('mouseleave', () => {
+            cursor.classList.remove('cursor-hover');
+            cursorFollower.classList.remove('cursor-hover');
+        });
+    });
+}); 
