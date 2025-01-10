@@ -13,7 +13,7 @@ function initAnimations() {
     gsap.set('.course-card', { y: 50, opacity: 0 });
     gsap.set('.list-section .section-title', { y: 50, opacity: 0 });
     gsap.set('.list-section .section-subtitle', { y: 30, opacity: 0 });
-    gsap.set('.list-item', { y: 50, opacity: 0 });
+    gsap.set('.list-item', { y: 70, opacity: 0 });
     gsap.set('.footer-section', { y: 30, opacity: 0 });
     gsap.set('.footer-bottom', { y: 30, opacity: 0 });
 
@@ -117,7 +117,7 @@ function initAnimations() {
     const successTimeline = gsap.timeline({
         scrollTrigger: {
             trigger: '.list-section',
-            start: 'top 80%'
+            start: 'top 90%'
         }
     });
 
@@ -126,8 +126,9 @@ function initAnimations() {
             y: 0,
             opacity: 1,
             duration: 0.8,
-            stagger: 0.2,
-            delay: 0.4
+            stagger: 0.3,
+            delay: 0.4,
+            ease: 'power2.out'
         });
 
     // Footer 动画

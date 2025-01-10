@@ -55,6 +55,7 @@ nav {
     color: var(--primary-color);
     text-decoration: none;
     letter-spacing: -1px;
+    cursor: pointer;
 }
 
 .nav-links {
@@ -73,6 +74,7 @@ nav {
     position: relative;
     padding: 0.5rem 0.8rem;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .nav-links a:hover {
@@ -278,9 +280,9 @@ nav {
     font-size: 0.9rem;
     font-weight: 500;
     transition: all 0.3s ease;
-    cursor: pointer;
     text-decoration: none;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
 .btn-secondary {
@@ -291,9 +293,9 @@ nav {
     font-size: 0.9rem;
     font-weight: 500;
     transition: all 0.3s ease;
-    cursor: pointer;
     text-decoration: none;
     background: white;
+    cursor: pointer;
 }
 
 .btn-primary:hover {
@@ -468,6 +470,7 @@ nav {
         0 4px 6px rgba(0, 0, 0, 0.02),
         0 1px 3px rgba(0, 0, 0, 0.03);
     will-change: transform, opacity;
+    cursor: pointer;
 }
 
 .list-item:hover {
@@ -615,6 +618,7 @@ nav {
     text-decoration: none;
     font-size: 0.95rem;
     transition: color 0.3s ease;
+    cursor: pointer;
 }
 
 .footer-section ul a:hover {
@@ -634,6 +638,7 @@ nav {
     padding: 0.5rem 1rem;
     border-radius: var(--border-radius);
     background: rgba(0, 0, 0, 0.03);
+    cursor: pointer;
 }
 
 .social-link:hover {
@@ -706,6 +711,7 @@ nav {
         0 15px 40px rgba(0, 0, 0, 0.03);
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     border: 1px solid rgba(0, 0, 0, 0.05);
+    cursor: pointer;
 }
 
 .course-card:hover {
@@ -799,6 +805,7 @@ nav {
     font-weight: 500;
     transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 112, 243, 0.15);
+    cursor: pointer;
 }
 
 .btn-course:hover {
@@ -846,23 +853,74 @@ nav {
     }
 }
 
-// 初始状态设置
-gsap.set('.list-item', { y: 70, opacity: 0 });
+/* 流星效果 */
+.shooting-star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 50%;
+    box-shadow: 
+        0 0 0 1px rgba(0, 0, 0, 0.1),
+        0 0 4px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    z-index: 10;
+}
 
-// 动画执行
-const successTimeline = gsap.timeline({
-    scrollTrigger: {
-        trigger: '.list-section',
-        start: 'top 90%'
+.shooting-star::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.8), transparent);
+    right: 0;
+}
+
+@keyframes shooting {
+    0% {
+        transform: translate(0, 0) rotate(45deg);
+        opacity: 1;
     }
-});
+    100% {
+        transform: translate(400px, 400px) rotate(45deg);
+        opacity: 0;
+    }
+}
 
-successTimeline
-    .to('.list-item', {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        stagger: 0.3,
-        delay: 0.4,
-        ease: 'power2.out'
-    }); 
+/* 创建多个流星 */
+.shooting-star:nth-child(1) {
+    top: 5%;
+    left: 15%;
+    animation: shooting 4s ease-out infinite;
+    animation-delay: 0s;
+}
+
+.shooting-star:nth-child(2) {
+    top: 8%;
+    left: 45%;
+    animation: shooting 5s ease-out infinite;
+    animation-delay: 2s;
+}
+
+.shooting-star:nth-child(3) {
+    top: 12%;
+    left: 75%;
+    animation: shooting 6s ease-out infinite;
+    animation-delay: 4s;
+}
+
+.shooting-star:nth-child(4) {
+    top: 15%;
+    left: 25%;
+    animation: shooting 5.5s ease-out infinite;
+    animation-delay: 6s;
+}
+
+.shooting-star:nth-child(5) {
+    top: 18%;
+    left: 60%;
+    animation: shooting 4.5s ease-out infinite;
+    animation-delay: 8s;
+} 
