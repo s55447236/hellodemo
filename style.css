@@ -1056,8 +1056,15 @@ nav {
     position: absolute;
     left: 0;
     top: 0;
-    transform: translateY(100%);
-    animation: wordSlideUp 8s linear infinite 0s;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: wordSlideUp 8s linear infinite;
+}
+
+.word-rotate .word:first-child {
+    opacity: 1;
+    transform: translateY(0);
+    position: relative;
 }
 
 .word-rotate .word:nth-child(2) {
@@ -1072,23 +1079,18 @@ nav {
     animation-delay: 6s;
 }
 
-.word-rotate .word:first-child {
-    position: relative;
-    transform: translateY(0);
-}
-
 @keyframes wordSlideUp {
-    0%, 20% {
-        transform: translateY(100%);
+    0%, 5% {
+        transform: translateY(50px);
+        opacity: 0;
     }
-    25% {
+    10%, 25% {
         transform: translateY(0);
+        opacity: 1;
     }
-    45% {
-        transform: translateY(0);
-    }
-    50%, 100% {
-        transform: translateY(-100%);
+    30%, 100% {
+        transform: translateY(-50px);
+        opacity: 0;
     }
 }
 
